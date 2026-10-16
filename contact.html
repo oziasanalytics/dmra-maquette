@@ -25,7 +25,7 @@
   </div>
 </header>
 
-<section class="page-hero">
+<section class="page-hero has-photo" style="--hero-img:url('assets/hero-contact.jpg'); --hero-y:15%;">
   <div class="container">
     <div class="page-hero-copy reveal">
       <span class="eyebrow" data-fr="Envoyer un Brief">Send a Brief</span>
@@ -62,7 +62,7 @@
         <p style="font-size:.86rem; color:var(--charcoal-soft); font-style:italic;" data-fr="Tout ne doit pas être finalisé avant de nous contacter.">Not everything needs to be finalized before you contact us.</p>
 
         <div class="hero-ctas" style="margin-top:20px;">
-          <a class="btn btn-primary" href="#" data-fr="Déposer Votre Brief">Upload Your Brief</a>
+          <a class="btn btn-primary" href="#" id="openBrief" role="button" aria-haspopup="dialog" data-fr="Déposer Votre Brief">Upload Your Brief</a>
           <a class="btn-text" href="mailto:info@dmra-ci.com">
             <span data-fr="Envoyer Votre Brief par E-mail">Send Your Brief by Email</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
@@ -75,7 +75,7 @@
         <h3 data-fr="Vous Ne Savez Pas Encore Quelle Approche Choisir ?">Not Sure What Research Approach You Need Yet?</h3>
         <p data-fr="Vous n'avez pas besoin d'une méthodologie ou d'un protocole finalisé pour commencer une conversation avec DMRA.">You do not need a completed methodology or research protocol to start a conversation with DMRA.</p>
 
-        <form class="contact-form" onsubmit="return false;">
+        <form class="contact-form" id="requestForm" onsubmit="return false;">
           <div class="form-row">
             <div class="form-field">
               <label data-fr="Nom*">Name*</label>
@@ -111,11 +111,17 @@
             </div>
             <div class="form-field">
               <label data-fr="Informations Complémentaires">Additional Information</label>
-              <input type="text">
+              <textarea rows="4"></textarea>
             </div>
           </div>
           <button class="btn btn-primary" type="submit" style="margin-top:6px;" data-fr="Soumettre Votre Demande">Submit Your Research Request</button>
         </form>
+        <div class="form-success" id="requestDone" role="status" hidden>
+          <h4 data-fr="Merci. Votre demande a bien été reçue.">Thank you. Your research request has been received.</h4>
+          <p data-fr="Notre équipe l'examinera et reviendra vers vous rapidement." >Our team will review it and come back to you shortly.</p>
+          <button class="btn-text" type="button" id="requestAgain" data-fr="Envoyer une autre demande">Send another request</button>
+        </div>
+        <p class="modal-note" data-fr="Version de démonstration : aucune demande n'est réellement envoyée pour le moment.">Preview version: no request is actually sent at this stage.</p>
       </div>
     </div>
   </div>
@@ -172,5 +178,115 @@
   </div>
 </footer>
 
+
+<div class="modal" id="briefModal" hidden>
+  <div class="modal-backdrop" data-close></div>
+  <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="briefTitle">
+    <button class="modal-close" type="button" data-close aria-label="Close">&times;</button>
+    <div id="briefFormWrap">
+      <span class="eyebrow" data-fr="Déposer Votre Brief">Upload Your Brief</span>
+      <h3 id="briefTitle" data-fr="Envoyez-nous votre brief de recherche">Send us your research brief</h3>
+      <p class="modal-lede" data-fr="Joignez votre brief ou votre protocole. Tout ne doit pas être finalisé : notre équipe l'examinera et reviendra vers vous.">Attach your brief or protocol. Not everything needs to be finalized: our team will review it and come back to you.</p>
+      <form class="contact-form" id="briefForm">
+        <div class="form-row">
+          <div class="form-field"><label for="briefName" data-fr="Nom*">Name*</label><input type="text" id="briefName" required></div>
+          <div class="form-field"><label for="briefOrg" data-fr="Organisation*">Organization*</label><input type="text" id="briefOrg" required></div>
+        </div>
+        <div class="form-field"><label for="briefEmail" data-fr="E-mail*">Email*</label><input type="email" id="briefEmail" required></div>
+        <div class="form-field">
+          <label for="briefFile" data-fr="Votre brief*">Your brief*</label>
+          <div class="file-drop" id="fileDrop">
+            <input type="file" id="briefFile" accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx" required>
+            <div class="file-empty" id="fileEmpty">
+              <strong data-fr="Choisir un fichier">Choose a file</strong>
+              <span data-fr="ou le glisser ici · PDF, Word, PowerPoint, Excel · 10 Mo max">or drag it here · PDF, Word, PowerPoint, Excel · 10 MB max</span>
+            </div>
+            <div class="file-chosen" id="fileChosen" hidden>
+              <span class="fname" id="fileName"></span><span class="fsize" id="fileSize"></span>
+              <button type="button" class="file-remove" id="fileRemove" aria-label="Remove file">&times;</button>
+            </div>
+          </div>
+          <p class="field-error" id="fileError" role="alert" hidden></p>
+        </div>
+        <div class="form-field"><label for="briefMsg" data-fr="Message (facultatif)">Message (optional)</label><textarea id="briefMsg" rows="3"></textarea></div>
+        <button class="btn btn-primary" type="submit" id="briefSubmit" style="margin-top:6px;" data-fr="Envoyer le brief">Send brief</button>
+      </form>
+    </div>
+    <div id="briefDone" hidden>
+      <span class="done-ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></span>
+      <h3 data-fr="Merci. Votre brief a bien été reçu.">Thank you. Your brief has been received.</h3>
+      <p class="modal-lede" data-fr="Notre équipe l'examinera et reviendra vers vous rapidement.">Our team will review it and come back to you shortly.</p>
+      <p class="done-file" id="doneFile"></p>
+      <button class="btn btn-primary" type="button" data-close data-fr="Fermer">Close</button>
+    </div>
+    <p class="modal-note" data-fr="Version de démonstration : aucun fichier n'est réellement envoyé pour le moment.">Preview version: no file is actually sent at this stage.</p>
+  </div>
+</div>
+
 <script src="shared.js"></script>
 <script src="premium.js" defer></script>
+<script>
+/* Démonstration du dépôt de brief et des confirmations (aucun envoi réel) */
+(function(){
+  var d=document, de=d.documentElement;
+  function L(){return de.lang==='fr'?'fr':'en'}
+  var T={
+    en:{req:'Please fill in this field.',mail:'Please enter a valid email address (for example name@company.com).',file:'Please attach your research brief.',big:'This file is larger than 10 MB. Please choose a smaller file.',type:'This file type is not supported. Please use PDF, Word, PowerPoint or Excel.',sent:'Attached: '},
+    fr:{req:'Veuillez renseigner ce champ.',mail:'Veuillez saisir une adresse e-mail valide (par exemple nom@entreprise.com).',file:'Veuillez joindre votre brief de recherche.',big:'Ce fichier dépasse 10 Mo. Veuillez choisir un fichier plus léger.',type:"Ce type de fichier n'est pas pris en charge. Utilisez un PDF, Word, PowerPoint ou Excel.",sent:'Fichier joint : '}};
+  [].forEach.call(d.querySelectorAll('.contact-form input, .contact-form textarea'),function(f){
+    f.addEventListener('invalid',function(){
+      f.setCustomValidity('');
+      if(f.validity.valueMissing) f.setCustomValidity(f.type==='file'?T[L()].file:T[L()].req);
+      else if(f.validity.typeMismatch) f.setCustomValidity(T[L()].mail);
+    });
+    f.addEventListener('input',function(){f.setCustomValidity('')});
+  });
+  function simulate(btn,cb){btn.disabled=true;btn.classList.add('is-sending');setTimeout(function(){btn.disabled=false;btn.classList.remove('is-sending');cb()},1400)}
+  /* --- demande de recherche --- */
+  var rf=d.getElementById('requestForm'),rd=d.getElementById('requestDone');
+  if(rf&&rd){
+    rf.addEventListener('submit',function(e){e.preventDefault();simulate(rf.querySelector('button[type=submit]'),function(){rf.hidden=true;rd.hidden=false;rf.reset()})});
+    d.getElementById('requestAgain').addEventListener('click',function(){rd.hidden=true;rf.hidden=false;rf.querySelector('input').focus()});
+  }
+  /* --- dépôt de brief --- */
+  var modal=d.getElementById('briefModal'),opener=d.getElementById('openBrief');
+  if(!modal||!opener) return;
+  var form=d.getElementById('briefForm'),wrap=d.getElementById('briefFormWrap'),done=d.getElementById('briefDone'),
+      file=d.getElementById('briefFile'),drop=d.getElementById('fileDrop'),empty=d.getElementById('fileEmpty'),chosen=d.getElementById('fileChosen'),
+      err=d.getElementById('fileError'),last=null;
+  function size(n){return n<1048576?Math.max(1,Math.round(n/1024))+' KB':(n/1048576).toFixed(1)+' MB'}
+  function clearFile(){file.value='';drop.classList.remove('has-file');chosen.hidden=true;empty.hidden=false}
+  function showErr(k){err.textContent=T[L()][k];err.hidden=false}
+  file.addEventListener('change',function(){
+    err.hidden=true;var f=file.files[0];if(!f){clearFile();return}
+    if(!/\.(pdf|docx?|pptx?|xlsx?)$/i.test(f.name)){clearFile();showErr('type');return}
+    if(f.size>10*1048576){clearFile();showErr('big');return}
+    d.getElementById('fileName').textContent=f.name;d.getElementById('fileSize').textContent=size(f.size);
+    drop.classList.add('has-file');chosen.hidden=false;empty.hidden=true;file.setCustomValidity('');
+  });
+  d.getElementById('fileRemove').addEventListener('click',function(){clearFile();err.hidden=true});
+  ['dragenter','dragover'].forEach(function(ev){drop.addEventListener(ev,function(){drop.classList.add('is-over')})});
+  ['dragleave','drop'].forEach(function(ev){drop.addEventListener(ev,function(){drop.classList.remove('is-over')})});
+  function reset(){form.reset();clearFile();err.hidden=true;wrap.hidden=false;done.hidden=true;modal.querySelector('.modal-note').hidden=false}
+  function open(e){e.preventDefault();last=d.activeElement;modal.hidden=false;de.classList.add('modal-open');requestAnimationFrame(function(){modal.classList.add('is-open')});d.getElementById('briefName').focus()}
+  function close(){modal.classList.remove('is-open');de.classList.remove('modal-open');setTimeout(function(){modal.hidden=true;reset()},220);if(last)last.focus()}
+  opener.addEventListener('click',open);
+  [].forEach.call(modal.querySelectorAll('[data-close]'),function(b){b.addEventListener('click',close)});
+  d.addEventListener('keydown',function(e){
+    if(modal.hidden)return;
+    if(e.key==='Escape'){close();return}
+    if(e.key==='Tab'){var f=[].filter.call(modal.querySelectorAll('a[href],button,input,textarea'),function(x){return !x.disabled&&x.offsetParent!==null});
+      if(!f.length)return;var a=f[0],z=f[f.length-1];
+      if(e.shiftKey&&d.activeElement===a){e.preventDefault();z.focus()}else if(!e.shiftKey&&d.activeElement===z){e.preventDefault();a.focus()}}
+  });
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var name=d.getElementById('fileName').textContent;
+    simulate(d.getElementById('briefSubmit'),function(){
+      d.getElementById('doneFile').textContent=T[L()].sent+name;
+      wrap.hidden=true;done.hidden=false;
+    });
+  });
+})();
+</script>
+

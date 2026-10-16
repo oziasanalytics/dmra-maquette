@@ -4,6 +4,14 @@
 
   var menuBtn = document.getElementById('menuBtn');
   var links = document.querySelector('nav.links');
+  /* Menu actif : la page courante reste soulignée */
+  (function(){
+    var here = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
+    Array.prototype.forEach.call(document.querySelectorAll('nav.links a[href]'), function(a){
+      var h = (a.getAttribute('href') || '').split('#')[0].toLowerCase();
+      if(h === here){ a.classList.add('is-active'); a.setAttribute('aria-current', 'page'); }
+    });
+  })();
   if(menuBtn){
     menuBtn.addEventListener('click', function(){
       var open = links.style.display === 'flex';
@@ -263,6 +271,36 @@
     var LEVEL_COLOR = { hub:'#C1622D', active:'#4A8FD1' };
 
     var MARKETS = {
+      BJ: { level:'active', region:{en:'West Africa',fr:"Afrique de l'Ouest"},
+        detail:{
+          en:"DMRA has research experience in Benin, contributing to our ability to support research programs across Francophone West African markets.",
+          fr:"DMRA dispose d'une expérience de recherche au Bénin, renforçant notre capacité à accompagner des programmes de recherche à travers les marchés d'Afrique de l'Ouest francophone."
+        }
+      },
+      TG: { level:'active', region:{en:'West Africa',fr:"Afrique de l'Ouest"},
+        detail:{
+          en:"DMRA has research experience in Togo, contributing to our ability to support research programs across Francophone West African markets.",
+          fr:"DMRA dispose d'une expérience de recherche au Togo, renforçant notre capacité à accompagner des programmes de recherche à travers les marchés d'Afrique de l'Ouest francophone."
+        }
+      },
+      ML: { level:'active', region:{en:'West Africa',fr:"Afrique de l'Ouest"},
+        detail:{
+          en:"DMRA has research experience in Mali, contributing to our ability to support research programs across Francophone West African markets.",
+          fr:"DMRA dispose d'une expérience de recherche au Mali, renforçant notre capacité à accompagner des programmes de recherche à travers les marchés d'Afrique de l'Ouest francophone."
+        }
+      },
+      NE: { level:'active', region:{en:'West Africa',fr:"Afrique de l'Ouest"},
+        detail:{
+          en:"DMRA has research experience in Niger, contributing to our ability to support research programs across Francophone West African markets.",
+          fr:"DMRA dispose d'une expérience de recherche au Niger, renforçant notre capacité à accompagner des programmes de recherche à travers les marchés d'Afrique de l'Ouest francophone."
+        }
+      },
+      GN: { level:'active', region:{en:'West Africa',fr:"Afrique de l'Ouest"},
+        detail:{
+          en:"DMRA has research experience in Guinea, contributing to our ability to support research programs across Francophone West African markets.",
+          fr:"DMRA dispose d'une expérience de recherche en Guinée, renforçant notre capacité à accompagner des programmes de recherche à travers les marchés d'Afrique de l'Ouest francophone."
+        }
+      },
       CI: { level:'hub', region:{en:'West Africa',fr:"Afrique de l'Ouest"},
         detail:{
           en:"DMRA's core market and principal base of operations. Our experience spans market and consumer research, social and behavioral research, public health studies, retail and distribution research, qualitative research, large-scale quantitative fieldwork and independent quality control.",
@@ -455,6 +493,14 @@
     if(nextBtn) nextBtn.addEventListener('click', function(){
       casesTrack.scrollBy({left: scrollAmount(), behavior:'smooth'});
     });
+    function updateCasesNav(){
+      var max = casesTrack.scrollWidth - casesTrack.clientWidth - 12;
+      if(prevBtn) prevBtn.disabled = casesTrack.scrollLeft <= 12;
+      if(nextBtn) nextBtn.disabled = casesTrack.scrollLeft >= max;
+    }
+    casesTrack.addEventListener('scroll', updateCasesNav, {passive:true});
+    window.addEventListener('resize', updateCasesNav);
+    updateCasesNav();
   }
 
   /* ===== EN / FR language toggle ===== */
