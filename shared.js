@@ -7,6 +7,10 @@
   /* Menu actif : la page courante reste soulignée */
   (function(){
     var here = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
+    if(/^insight-/.test(here)) here = 'insights.html';
+    if(/^case-/.test(here)) here = 'experience.html';
+    var PARENT = {'procedure-qc.html':'capabilities.html','quality-control.html':'capabilities.html','commitment.html':'about.html','added-value.html':'about.html'};
+    if(PARENT[here]) here = PARENT[here];
     Array.prototype.forEach.call(document.querySelectorAll('nav.links a[href]'), function(a){
       var h = (a.getAttribute('href') || '').split('#')[0].toLowerCase();
       if(h === here){ a.classList.add('is-active'); a.setAttribute('aria-current', 'page'); }
@@ -265,10 +269,11 @@
     };
 
     var LEVEL_LABEL = {
-      hub:    {en:'Principal Base of Operations', fr:"Base d'Opérations Principale"},
+      hub:    {en:'Head Office & Principal Base of Operations', fr:"Siège & Base d'Opérations Principale"},
+      office: {en:'DMRA Office', fr:'Bureau DMRA'},
       active: {en:'Research Experience', fr:'Expérience de Recherche'}
     };
-    var LEVEL_COLOR = { hub:'#C1622D', active:'#4A8FD1' };
+    var LEVEL_COLOR = { hub:'#C1622D', office:'#D9A441', active:'#4A8FD1' };
 
     var MARKETS = {
       BJ: { level:'active', region:{en:'West Africa',fr:"Afrique de l'Ouest"},
@@ -303,20 +308,20 @@
       },
       CI: { level:'hub', region:{en:'West Africa',fr:"Afrique de l'Ouest"},
         detail:{
-          en:"DMRA's core market and principal base of operations. Our experience spans market and consumer research, social and behavioral research, public health studies, retail and distribution research, qualitative research, large-scale quantitative fieldwork and independent quality control.",
-          fr:"Le marché principal et la base d'opérations de DMRA. Notre expérience couvre les études de marché et consommateur, la recherche sociale et comportementale, les études de santé publique, la recherche retail et distribution, la recherche qualitative, le travail de terrain quantitatif à grande échelle et le contrôle qualité indépendant."
+          en:"DMRA's head office, core market and principal base of operations. Our experience spans market and consumer research, social and behavioral research, public health studies, retail and distribution research, qualitative research, large-scale quantitative fieldwork and independent quality control.",
+          fr:"Le siège, le marché principal et la base d'opérations de DMRA. Notre expérience couvre les études de marché et consommateur, la recherche sociale et comportementale, les études de santé publique, la recherche retail et distribution, la recherche qualitative, le travail de terrain quantitatif à grande échelle et le contrôle qualité indépendant."
         }
       },
-      SN: { level:'active', region:{en:'West Africa',fr:"Afrique de l'Ouest"},
+      SN: { level:'office', region:{en:'West Africa',fr:"Afrique de l'Ouest"},
         detail:{
-          en:'DMRA has supported research activities in Senegal, including assignments requiring local field execution and independent quality-control capabilities. Our experience contributes to our ability to support international research programs operating across multiple Francophone West African markets.',
-          fr:"DMRA a soutenu des activités de recherche au Sénégal, y compris des missions nécessitant une exécution terrain locale et des capacités de contrôle qualité indépendant. Cette expérience contribue à notre capacité à accompagner des programmes de recherche internationaux opérant sur plusieurs marchés d'Afrique de l'Ouest francophone."
+          en:"DMRA has an office in Senegal, supporting assignments that require local field execution and independent quality-control capabilities, and contributing to our ability to support international research programs across multiple Francophone West African markets.",
+          fr:"DMRA dispose d'un bureau au Sénégal, qui accompagne des missions nécessitant une exécution terrain locale et des capacités de contrôle qualité indépendant, et contribue à notre capacité à soutenir des programmes de recherche internationaux sur plusieurs marchés d'Afrique de l'Ouest francophone."
         }
       },
-      CM: { level:'active', region:{en:'Central Africa',fr:'Afrique Centrale'},
+      CM: { level:'office', region:{en:'Central Africa',fr:'Afrique Centrale'},
         detail:{
-          en:'DMRA has research experience in Cameroon, providing local market and field understanding to support assignments within the broader Francophone African research environment.',
-          fr:"DMRA dispose d'une expérience de recherche au Cameroun, apportant une compréhension du marché local et du terrain pour accompagner des missions au sein de l'environnement de recherche francophone africain élargi."
+          en:"DMRA has an office in Cameroon, providing local market and field understanding to support assignments within the broader Francophone African research environment.",
+          fr:"DMRA dispose d'un bureau au Cameroun, apportant une compréhension du marché local et du terrain pour accompagner des missions au sein de l'environnement de recherche francophone africain élargi."
         }
       },
       BF: { level:'active', region:{en:'West Africa',fr:"Afrique de l'Ouest"},

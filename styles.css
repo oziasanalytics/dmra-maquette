@@ -657,3 +657,77 @@ html.modal-open{overflow:hidden;}
 @media (max-width:620px){.posts-grid{grid-template-columns:1fr;}}
 .page-hero.has-photo .btn-text{color:var(--ivory);}
 .page-hero.has-photo .btn-text:hover{color:var(--terracotta-tint);}
+
+/* Autres projets */
+.proj-list{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(2,1fr); gap:0 40px;}
+.proj-list li{display:flex; gap:12px; align-items:flex-start; padding:16px 0; border-top:1px solid var(--line); font-size:.95rem; font-weight:600; color:var(--navy);}
+.proj-list li::before{content:""; flex:none; width:8px; height:8px; margin-top:.55em; border-radius:50%; background:var(--terracotta);}
+@media (max-width:760px){.proj-list{grid-template-columns:1fr;}}
+
+/* Contenus repris de l'ancien site */
+.case .credit{font-size:.78rem; font-style:italic; color:var(--charcoal-soft); margin:-4px 0 12px;}
+.foot-addr{font-size:.84rem; line-height:1.5; color:var(--charcoal-soft);}
+.foot-social{font-size:.86rem;}
+.blog-card{display:flex; flex-direction:column; gap:12px; background:#FFFCF5; border:1px solid var(--line); border-radius:8px; padding:24px;}
+.blog-card h3{font-size:1.12rem;}
+.blog-date{font-size:.74rem; font-weight:700; color:var(--terracotta);}
+.blog-card .btn-text{margin-top:auto;}
+
+/* Carte : bureaux DMRA */
+.coverage-svg path.market.office{fill:#D9A441;}
+.coverage-svg path.market.office:hover, .coverage-svg path.market.office.is-selected{fill:#E9BB62; filter:drop-shadow(0 0 10px rgba(217,164,65,.55));}
+.markets-strip .ms-list li.office{border-color:#D9A441; background:#FBF1DC;}
+.markets-strip{align-items:flex-start;}
+.markets-strip .ms-group{display:flex; flex-wrap:wrap; align-items:center; gap:10px 14px; width:100%;}
+
+/* Pages d'insight et pages « offre » */
+.back-link{display:inline-block; color:rgba(250,246,238,.85); font-size:.84rem; font-weight:700; margin-bottom:16px; text-decoration:none;}
+.back-link:hover{color:var(--terracotta-tint);}
+.art-meta{margin-top:14px; font-size:.86rem; color:rgba(250,246,238,.8);}
+.article-layout{display:grid; grid-template-columns:minmax(0,1fr) 300px; gap:56px; align-items:start;}
+.article-body{max-width:70ch;}
+.article-body h2{font-size:1.35rem; margin:34px 0 10px;}
+.article-body p{font-size:1.02rem; line-height:1.75; color:var(--charcoal-soft); margin-bottom:14px;}
+.article-body strong{color:var(--navy);}
+.article-body ul{margin:0 0 16px 1.1em; padding:0; color:var(--charcoal-soft); line-height:1.7;}
+.article-body li{margin-bottom:6px;}
+.sample-note{font-size:.86rem; font-style:italic; border-left:3px solid var(--terracotta); background:var(--terracotta-tint); padding:10px 14px; border-radius:0 6px 6px 0;}
+.article-side{position:sticky; top:96px; display:flex; flex-direction:column; gap:14px; background:#FFFCF5; border:1px solid var(--line); border-radius:8px; padding:22px;}
+.article-side h4{font-size:1rem;}
+.article-side ul{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:10px;}
+.article-side li a{color:var(--navy); font-weight:600; font-size:.9rem; text-decoration:none; line-height:1.4; display:block;}
+.article-side li a:hover{color:var(--terracotta);}
+.post-card h3 a{color:inherit; text-decoration:none;}
+.post-card h3 a:hover{color:var(--terracotta);}
+.check-list{list-style:none; margin:10px 0 0; padding:0; display:flex; flex-direction:column; gap:8px; font-size:.92rem; color:var(--charcoal-soft);}
+.check-list li{position:relative; padding-left:20px;}
+.check-list li::before{content:""; position:absolute; left:2px; top:.55em; width:8px; height:8px; border-radius:50%; background:var(--terracotta);}
+.stats-strip{display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:6px; overflow:hidden;}
+.stats-strip .stat-card{background:#FFFCF5; padding:22px;}
+.offer-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:24px;}
+.offer-card{display:flex; flex-direction:column; background:#FFFCF5; border:1px solid var(--line); border-radius:8px; overflow:hidden; text-decoration:none; color:inherit; transition:box-shadow .3s,border-color .3s,transform .3s;}
+.offer-card:hover{border-color:rgba(193,98,45,.5); box-shadow:0 24px 44px -30px rgba(15,36,64,.5);}
+.offer-img{display:block; height:150px; background-size:cover; background-position:center;}
+.offer-body{display:flex; flex-direction:column; gap:8px; padding:20px 22px 22px; flex:1;}
+.offer-body .idx{font-size:.74rem; font-weight:700; color:var(--terracotta);}
+.offer-body h3{font-size:1.1rem;}
+.offer-body p{font-size:.88rem; color:var(--charcoal-soft); margin:0;}
+.offer-body .btn-text{margin-top:auto; padding-top:8px;}
+#approach + #partners{border-top:1px solid var(--line);}
+@media (max-width:980px){.offer-grid{grid-template-columns:1fr 1fr;} .article-layout{grid-template-columns:1fr;} .article-side{position:static;}}
+@media (max-width:620px){.offer-grid{grid-template-columns:1fr;} .stats-strip{grid-template-columns:1fr;}}
+
+/* Pages d'étude de cas et ancres */
+section[id]{scroll-margin-top:76px;}
+.case-metrics{display:flex; flex-wrap:wrap; gap:28px 40px; margin:6px 0 4px;}
+.case-metrics div{display:flex; flex-direction:column; gap:2px;}
+.case-metrics b{font-family:var(--font-display); font-size:2rem; color:var(--terracotta); line-height:1.1;}
+.case-metrics span{font-size:.84rem; color:var(--charcoal-soft);}
+.case-pager{display:flex; justify-content:space-between; gap:16px; margin-top:34px; padding-top:18px; border-top:1px solid var(--line); font-weight:700; font-size:.9rem;}
+.case-pager a{color:var(--navy); text-decoration:none;}
+.case-pager a:hover{color:var(--terracotta);}
+.article-body .credit{font-style:italic; font-size:.9rem;}
+.case-body a.view{margin-top:auto; font-size:.82rem; font-weight:700; color:var(--navy); display:inline-flex; align-items:center; gap:6px; text-decoration:none; padding-top:12px;}
+.case-body a.view:hover{color:var(--terracotta);}
+.blog-card h3 a{color:inherit; text-decoration:none;}
+.blog-card h3 a:hover{color:var(--terracotta);}
